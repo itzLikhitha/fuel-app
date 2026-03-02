@@ -1,4 +1,4 @@
-const BASE_URL = `http://${window.location.hostname}:5000`;
+const BASE_URL = "https://fuel-app-6kiv.onrender.com";
 
 async function request(path, options = {}, token) {
   const headers = {
