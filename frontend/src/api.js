@@ -10,12 +10,19 @@ async function request(path, options = {}, token) {
     headers.Authorization = `Bearer ${token}`;
   }
 
-  const response = await fetch(`${BASE_URL}/api${path}`, {
+  const url = `${BASE_URL}/api${path}`;
+  console.log("[API] Request URL:", url);
+  console.log("[API] Request Body:", options.body || null);
+
+  const response = await fetch(url, {
     ...options,
     headers,
   });
 
+  console.log("[API] Response Status:", response.status);
   const data = await response.json();
+  console.log("[API] Response JSON:", data);
+
   if (!response.ok) {
     throw new Error(data.error || "Request failed");
   }

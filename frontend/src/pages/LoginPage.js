@@ -10,12 +10,14 @@ function LoginPage({ onOtpRequested }) {
     event.preventDefault();
     setError("");
     setLoading(true);
+
     try {
       const data = await requestOtp(phone.trim());
+      setLoading(false);
       onOtpRequested(phone.trim(), data.otp);
     } catch (err) {
+      console.error("[LoginPage] requestOtp failed:", err.message);
       setError(err.message);
-    } finally {
       setLoading(false);
     }
   };
