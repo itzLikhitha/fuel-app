@@ -3,7 +3,7 @@ from database import db
 from models import MechanicRequest, validate_mechanic_payload
 from utils.auth import token_required
 
-mechanic_bp = Blueprint("mechanic", __name__)
+mechanic_bp = Blueprint("mechanic", __name__, url_prefix="/api/mechanic")
 
 
 def serialize_request(doc: MechanicRequest) -> dict:

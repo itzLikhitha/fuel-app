@@ -5,7 +5,7 @@ from utils.auth import token_required
 from utils.plate_ocr import extract_plate_text
 import random
 
-booking_bp = Blueprint("booking", __name__)
+booking_bp = Blueprint("booking", __name__, url_prefix="/api/bookings")
 
 # Temporary in-memory store for per-user OTP and pending booking payload.
 # Structure: { user_id: { "otp": "123456", "payload": {...} } }
