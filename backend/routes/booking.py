@@ -24,6 +24,7 @@ def serialize_booking(doc: FuelBooking) -> dict:
     }
 
 
+@booking_bp.post("/")
 @booking_bp.post("/verify")
 @token_required
 def verify_booking(user):
