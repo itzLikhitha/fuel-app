@@ -7,6 +7,8 @@ from database import db
 from routes.auth import auth_bp
 from routes.booking import booking_bp
 from routes.mechanic import mechanic_bp
+from flask_cors import CORS
+CORS(app)
 
 app = Flask(__name__)
 app.config.from_object(Config)
