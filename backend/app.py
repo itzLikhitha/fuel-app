@@ -11,20 +11,7 @@ from routes.mechanic import mechanic_bp
 app = Flask(__name__)
 app.config.from_object(Config)
 
-# Comma-separated list of allowed origins, e.g.
-# FRONTEND_ORIGINS=https://my-app.vercel.app,https://my-preview.vercel.app
-origins_env = os.getenv("FRONTEND_ORIGINS", "").strip()
-if origins_env:
-    allowed_origins = [origin.strip() for origin in origins_env.split(",") if origin.strip()]
-else:
-    frontend_domain = os.getenv("FRONTEND_URL", "http://localhost:3000")
-    allowed_origins = [frontend_domain]
-
-CORS(
-    app,
-    resources={r"/api/*": {"origins": allowed_origins}},
-    supports_credentials=False,
-)
+CORS(app, resources={r"/*": {"origins": "*"}})
 db.init_app(app)
 
 with app.app_context():
