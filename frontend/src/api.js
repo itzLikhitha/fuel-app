@@ -1,10 +1,5 @@
-const RAW_BASE_URL = (process.env.REACT_APP_BASE_URL || "https://fuel-app-be85.onrender.com").trim();
-const BASE_URL = RAW_BASE_URL.replace(/\/+$/, "");
+const BASE_URL = "https://fuel-app-be85.onrender.com";
 const API_BASE_URL = `${BASE_URL}/api`;
-
-if (!BASE_URL.startsWith("https://")) {
-  console.error("[API] REACT_APP_BASE_URL must start with https://. Current value:", BASE_URL);
-}
 
 async function request(path, options = {}, token) {
   const headers = {
@@ -18,17 +13,15 @@ async function request(path, options = {}, token) {
 
   const normalizedPath = path.startsWith("/") ? path : `/${path}`;
   const url = `${API_BASE_URL}${normalizedPath}`;
-  console.log("[API] Request URL:", url);
-  console.log("[API] Request Body:", options.body || null);
+
+  console.log("Request URL:", url);
 
   const response = await fetch(url, {
     ...options,
     headers,
   });
 
-  console.log("[API] Response Status:", response.status);
   const data = await response.json();
-  console.log("[API] Response JSON:", data);
 
   if (!response.ok) {
     throw new Error(data.error || "Request failed");
