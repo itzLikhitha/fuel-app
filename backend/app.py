@@ -9,7 +9,7 @@ from routes.booking import booking_bp
 from routes.mechanic import mechanic_bp
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
 app.config.from_object(Config)
 
 db.init_app(app)
@@ -28,4 +28,5 @@ def health():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
