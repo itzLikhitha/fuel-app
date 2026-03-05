@@ -1,5 +1,4 @@
-const BASE_URL = "https://fuel-app-be85.onrender.com";
-const API_BASE_URL = `${BASE_URL}/api`;
+const API_BASE_URL = "http://127.0.0.1:5000/api";
 
 async function request(path, options = {}, token) {
   const headers = {

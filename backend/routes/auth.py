@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from models import User
+import random
 
 auth_bp = Blueprint("auth", __name__, url_prefix="/api/auth")
 
@@ -14,7 +15,7 @@ def request_otp():
     if not phone:
         return jsonify({"success": False, "message": "Phone number required"}), 400
 
-    otp = "123456"  # fixed OTP for testing
+    otp = str(random.randint(100000, 999999))
     otp_store[phone] = otp
     print(f"[SIMULATED OTP] Phone: {phone}, OTP: {otp}")  # console log
     return jsonify({"success": True, "message": "OTP sent successfully (simulated)"})
