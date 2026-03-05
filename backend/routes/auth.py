@@ -20,7 +20,7 @@ def request_otp():
     print("OTP for", phone, "is", otp)
 
     return jsonify({
-        "success": True,
+        "message": "OTP sent successfully",
         "otp": otp
     })
 
