@@ -9,7 +9,11 @@ from routes.booking import booking_bp
 from routes.mechanic import mechanic_bp
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(
+    app,
+    resources={r"/api/*": {"origins": "*"}},
+    supports_credentials=True
+)
 app.config.from_object(Config)
 
 db.init_app(app)
