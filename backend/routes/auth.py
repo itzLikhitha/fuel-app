@@ -7,17 +7,15 @@ auth_bp = Blueprint("auth", __name__, url_prefix="/api/auth")
 otp_store = {}
 
 
-@auth_bp.route("/request_otp", methods=["POST"])
-@auth_bp.route("/request-otp", methods=["POST"])
+@auth_bp.route("/api/auth/request-otp", methods=["POST"])
 def request_otp():
-    data = request.get_json(silent=True) or {}
-    phone = str(data.get("phone", "")).strip()
-    if not phone:
-        return jsonify({"success": False, "error": "Phone number required"}), 400
+    data = request.get_json()
+    phone = data.get("phone")
 
-    otp = "123456"
+    import random
+    otp = str(random.randint(100000, 999999))
+
     otp_store[phone] = otp
-    print("OTP for", phone, "is", otp)
 
     return jsonify({
         "message": "OTP sent successfully",
