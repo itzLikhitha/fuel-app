@@ -4,8 +4,8 @@ function LoginPage({ onOtpRequested }) {
   const [phone, setPhone] = useState("");
 
   const sendOtp = () => {
-    if (!phone) {
-      alert("Enter phone number");
+    if (phone.length !== 10) {
+      alert("Enter valid 10 digit phone number");
       return;
     }
 
@@ -14,7 +14,6 @@ function LoginPage({ onOtpRequested }) {
     localStorage.setItem("demo_otp", otp);
     localStorage.setItem("phone", phone);
 
-    alert("OTP sent: " + otp);
     onOtpRequested(phone, otp);
   };
 
