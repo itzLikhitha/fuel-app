@@ -1,25 +1,21 @@
 import React, { useState } from "react";
-import { requestOtp } from "../api";
 
 function LoginPage({ onOtpRequested }) {
   const [phone, setPhone] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
-  const submit = async (event) => {
-    event.preventDefault();
-    setError("");
-    setLoading(true);
-
-    try {
-      const data = await requestOtp(phone.trim());
-      setLoading(false);
-      onOtpRequested(phone.trim(), data.otp);
-    } catch (err) {
-      console.error("[LoginPage] requestOtp failed:", err.message);
-      setError(err.message);
-      setLoading(false);
+  const sendOtp = () => {
+    if (!phone) {
+      alert("Enter phone number");
+      return;
     }
+
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+    localStorage.setItem("demo_otp", otp);
+    localStorage.setItem("phone", phone);
+
+    alert("OTP sent: " + otp);
+    onOtpRequested(phone, otp);
   };
 
   return (
@@ -27,20 +23,17 @@ function LoginPage({ onOtpRequested }) {
       <div className="card">
         <h1>Online Fuel Delivery</h1>
         <p>Enter your 10-digit mobile number to receive OTP.</p>
-        <form onSubmit={submit}>
-          <input
-            type="tel"
-            placeholder="10-digit phone number"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            maxLength={10}
-            required
-          />
-          <button type="submit" disabled={loading}>
-            {loading ? "Sending..." : "Send OTP"}
-          </button>
-        </form>
-        {error && <p className="error">{error}</p>}
+        <input
+          type="tel"
+          placeholder="10-digit phone number"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          maxLength={10}
+          required
+        />
+        <button type="button" onClick={sendOtp}>
+          Send OTP
+        </button>
       </div>
     </div>
   );
