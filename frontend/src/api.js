@@ -1,23 +1,19 @@
-const API_BASE_URL = "http://127.0.0.1:5000/api";
+const API_BASE_URL = "https://fuel-app-be85.onrender.com/api";
 
 async function request(path, options = {}, token) {
+
   const headers = {
     "Content-Type": "application/json",
-    ...(options.headers || {}),
+    ...(options.headers || {})
   };
 
   if (token) {
     headers.Authorization = `Bearer ${token}`;
   }
 
-  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
-  const url = `${API_BASE_URL}${normalizedPath}`;
-
-  console.log("Request URL:", url);
-
-  const response = await fetch(url, {
+  const response = await fetch(`${API_BASE_URL}${path}`, {
     ...options,
-    headers,
+    headers
   });
 
   const data = await response.json();
@@ -32,14 +28,14 @@ async function request(path, options = {}, token) {
 export function requestOtp(phone) {
   return request("/auth/request-otp", {
     method: "POST",
-    body: JSON.stringify({ phone }),
+    body: JSON.stringify({ phone })
   });
 }
 
 export function verifyOtp(phone, otp) {
   return request("/auth/verify-otp", {
     method: "POST",
-    body: JSON.stringify({ phone, otp }),
+    body: JSON.stringify({ phone, otp })
   });
 }
 
