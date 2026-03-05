@@ -11,8 +11,13 @@ from routes.mechanic import mechanic_bp
 app = Flask(__name__)
 CORS(
     app,
-    resources={r"/api/*": {"origins": "*"}},
-    supports_credentials=True
+    resources={r"/api/*": {"origins": [
+        "https://fuel-app-wheat.vercel.app",
+        "http://localhost:3000"
+    ]}},
+    supports_credentials=True,
+    allow_headers=["Content-Type", "Authorization"],
+    methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 )
 app.config.from_object(Config)
 
